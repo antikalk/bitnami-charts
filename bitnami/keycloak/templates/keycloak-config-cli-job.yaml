@@ -89,7 +89,7 @@ spec:
             {{- if .Values.keycloakConfigCli.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.keycloakConfigCli.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
-          {{- if or .Values.keycloakConfigCli.extraEnvVarsCM .Values.keycloakConfigCli.extraEnvVarsSecret }}
+          {{- if or .Values.keycloakConfigCli.extraEnvVarsCM .Values.keycloakConfigCli.extraEnvVarsSecret .Values.keycloakConfigCli.extraEnvVarsSecrets }}
           envFrom:
             {{- if .Values.keycloakConfigCli.extraEnvVarsCM }}
             - configMapRef:
@@ -98,6 +98,9 @@ spec:
             {{- if .Values.keycloakConfigCli.extraEnvVarsSecret }}
             - secretRef:
                 name: {{ include "common.tplvalues.render" (dict "value" .Values.keycloakConfigCli.extraEnvVarsSecret "context" $) }}
+            {{- end }}
+            {{- if .Values.keycloakConfigCli.extraEnvVarsSecrets }}
+            {{- include "common.tplvalues.render" (dict "value" .Values.keycloakConfigCli.extraEnvVarsSecrets "context" $) | nindent 12 }}
             {{- end }}
           {{- end }}
           {{- if or .Values.keycloakConfigCli.configuration .Values.keycloakConfigCli.existingConfigmap .Values.keycloakConfigCli.extraVolumeMounts }}
