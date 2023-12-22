@@ -983,7 +983,7 @@ keycloakConfigCli:
   ## @param keycloakConfigCli.extraEnvVarsSecret Secret with extra environment variables
   ##
   extraEnvVarsSecret: ""
-  ## @param keycloakConfigCli.extraEnvVarsSecrets Extra secrets to be set as env vars on Keycloak Container
+  ## @param keycloakConfigCli.extraEnvVarsSecrets Extra secrets with extra environment variables
   ## Example:
   ## extraEnvVarsSecrets:
   ##  - secretRef:
