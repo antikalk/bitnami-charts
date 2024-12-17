@@ -10,6 +10,7 @@ metadata:
   namespace: {{ include "common.names.namespace" . | quote }}
   labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
     app.kubernetes.io/component: keycloak
+    kc-version: {{ regexReplaceAll "^([0-9]+)\\.([0-9]+).*" .Values.image.tag "$1-$2" }}
   {{- if or .Values.statefulsetAnnotations .Values.commonAnnotations }}
   annotations: {{- include "common.tplvalues.merge" ( dict "values" ( list .Values.statefulsetAnnotations .Values.commonAnnotations ) "context" $ ) | nindent 4 }}
   {{- end }}

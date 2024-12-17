@@ -95,7 +95,7 @@ data:
   {{- if .Values.cache.stackFile }}
   KEYCLOAK_CACHE_CONFIG_FILE: {{ .Values.cache.stackFile | quote }}
   {{- end }}
-  JAVA_OPTS_APPEND: {{ printf "-Djgroups.dns.query=%s-headless.%s.svc.%s" (include "common.names.fullname" .) (include "common.names.namespace" .) .Values.clusterDomain | quote }}
+  JAVA_OPTS_APPEND: {{ printf "-Djgroups.dns.query=%s-headless-%s.%s.svc.%s" (include "common.names.fullname" .) (regexReplaceAll "^([0-9]+)\\.([0-9]+).*" .Values.image.tag "$1-$2") (include "common.names.namespace" .) .Values.clusterDomain | quote }}
   {{- else }}
   KEYCLOAK_CACHE_TYPE: "local"
   {{- end }}
